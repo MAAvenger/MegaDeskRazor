@@ -7,8 +7,8 @@ namespace MegaDeskRazor.Models
 {
     public class SurfaceMaterial
     {
-        public int SurfaceMaterialID { get; set; }
+        public int SurfaceMaterialId { get; set; }
         public string SurfaceMaterialName { get; set; }
-        public decimal Cost { get; set; }
+        public decimal SurfaceCost { get; set; }
     }
 }
