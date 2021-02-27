@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MegaDeskRazor.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -49,37 +50,45 @@ namespace MegaDeskRazor.Models
             return drawePrice * Desk.NumberofDrawer;
         }
 
-        public decimal GetMaterialPrice()
+        public decimal GetQuotePrice(MegaDeskRazorContext context)
         {
-            return Desk.SurfaceMaterial.SurfaceCost;
-        }
+            decimal Base = 200;
 
-        public decimal GetShipping()
-        {
-            decimal area = Desk.Width * Desk.Depth;
+            //get material price from db
+
+            decimal materialPrice = 0;
+
+            var materialPrices = context.SurfaceMaterial
+                                    .Where(d => d.SurfaceMaterialId == this.Desk.SurfaceMaterialId).FirstOrDefault();
+
+            materialPrice = materialPrices.SurfaceCost;
+
+            //get shipping price from db
+            decimal shippingCost = 0;
+
+            var shippingCosts = context.Shipping
+                                .Where(s => s.ShippingId == this.ShippingId).FirstOrDefault();
+            
+            decimal area = this.Desk.Width * this.Desk.Depth;
 
             if (area < 1000)
             {
-                return Shipping.ShippingUnder1000;
+                shippingCost = shippingCosts.ShippingUnder1000;
             }
             else if (area < 2000)
             {
-                return Shipping.ShippingBtwn10002000;
+                shippingCost = shippingCosts.ShippingBtwn10002000;
             }
             else if (area > 2000)
             {
-                return Shipping.ShippingOver2000;
+                shippingCost = shippingCosts.ShippingOver2000;
             }
             else
             {
-                return 0;
+                shippingCost = 0;
             }
-        }
+            this.QuotePrice = Base + GetAreaPrice() + GetDrawerPrice() + materialPrice + (decimal)shippingCost;
 
-        public decimal GetQuotePrice()
-        {
-            decimal Base = 200;
-            this.QuotePrice = Base + GetAreaPrice() + GetDrawerPrice() + GetMaterialPrice() + GetShipping();
             return this.QuotePrice;
         }
     }

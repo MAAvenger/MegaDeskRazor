@@ -21,8 +21,17 @@ namespace MegaDeskRazor.Pages.DeskQuotes
 
         public IList<DeskQuote> DeskQuote { get;set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+
         public async Task OnGetAsync()
         {
+            var name = from n in _context.DeskQuote
+                          select n;
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                name = name.Where(s => s.CustomerName.Contains(SearchString));
+            }
             DeskQuote = await _context.DeskQuote
                 .Include(d => d.Desk)
                 .Include(d => d.Desk.SurfaceMaterial)

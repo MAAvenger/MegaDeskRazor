@@ -39,8 +39,10 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             {
                 return Page();
             }
+
             //add desk
             _context.Desk.Add(Desk);
+            await _context.SaveChangesAsync();
 
             //set desk id
             DeskQuote.DeskId = Desk.DeskId;
@@ -51,8 +53,10 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             //set quote date
             DeskQuote.QuoteDate = DateTime.Today;
 
+            DeskQuote.Shipping = DeskQuote.Shipping;
+            DeskQuote.Desk.SurfaceMaterial = Desk.SurfaceMaterial;
             //set quote price
-            DeskQuote.QuotePrice = DeskQuote.GetQuotePrice();
+            DeskQuote.QuotePrice = DeskQuote.GetQuotePrice(_context);
 
             //set deskqoute
             _context.DeskQuote.Add(DeskQuote);
