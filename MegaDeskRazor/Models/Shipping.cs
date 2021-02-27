@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +10,8 @@ namespace MegaDeskRazor.Models
     {
         public int ShippingId { get; set; }
 
+        [Display(Name = "Shipping Days")]
+        [Required]
         public string ShippingDays { get; set; }
 
         public int ShippingUnder1000 { get; set; }

@@ -21,6 +21,9 @@ namespace MegaDeskRazor.Pages.DeskQuotes
         }
 
         [BindProperty]
+        public Desk Desk { get; set; }
+
+        [BindProperty]
         public DeskQuote DeskQuote { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -38,8 +41,8 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             {
                 return NotFound();
             }
-           ViewData["DeskId"] = new SelectList(_context.Set<Desk>(), "DeskId", "DeskId");
-           ViewData["ShippingId"] = new SelectList(_context.Set<Shipping>(), "ShippingId", "ShippingId");
+            ViewData["SurfaceMaterialId"] = new SelectList(_context.Set<SurfaceMaterial>(), "SurfaceMaterialId", "SurfaceMaterialName");
+            ViewData["ShippingId"] = new SelectList(_context.Set<Shipping>(), "ShippingId", "ShippingDays");
             return Page();
         }
 
@@ -56,6 +59,23 @@ namespace MegaDeskRazor.Pages.DeskQuotes
 
             try
             {
+                //add desk
+                _context.Desk.Add(Desk);
+
+                //set desk id
+                DeskQuote.DeskId = Desk.DeskId;
+
+                //set desk
+                DeskQuote.Desk = Desk;
+
+                //set quote date
+                DeskQuote.QuoteDate = DateTime.Today;
+
+                //set quote price
+                DeskQuote.QuotePrice = DeskQuote.GetQuotePrice();
+
+                //set deskqoute
+                _context.DeskQuote.Add(DeskQuote);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

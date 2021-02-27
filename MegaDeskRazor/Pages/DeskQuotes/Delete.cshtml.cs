@@ -31,6 +31,7 @@ namespace MegaDeskRazor.Pages.DeskQuotes
 
             DeskQuote = await _context.DeskQuote
                 .Include(d => d.Desk)
+                .Include(d => d.Desk.SurfaceMaterial)
                 .Include(d => d.Shipping).FirstOrDefaultAsync(m => m.DeskQuoteId == id);
 
             if (DeskQuote == null)

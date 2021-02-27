@@ -7,7 +7,7 @@
 
 <h1>Create</h1>
 
-<h4>DeskQuote</h4>
+<h4>Desk Quote</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,26 +15,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DeskQuote.CustomerName" class="control-label"></label>
-                <input asp-for="DeskQuote.CustomerName" class="form-control" />
+                <input asp-for="DeskQuote.CustomerName" placeholder="Please enter your full name" class="form-control" />
                 <span asp-validation-for="DeskQuote.CustomerName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeskQuote.QuoteDate" class="control-label"></label>
-                <input asp-for="DeskQuote.QuoteDate" class="form-control" />
-                <span asp-validation-for="DeskQuote.QuoteDate" class="text-danger"></span>
+                <label asp-for="Desk.Width" class="control-label"></label>
+                <input asp-for="Desk.Width" class="form-control" placeholder="Enter a value between 48 to 96" min="48" max="96" required></input>
+                <span asp-validation-for="Desk.Width" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeskQuote.QuotePrice" class="control-label"></label>
-                <input asp-for="DeskQuote.QuotePrice" class="form-control" />
-                <span asp-validation-for="DeskQuote.QuotePrice" class="text-danger"></span>
+                <label asp-for="Desk.Depth" class="control-label"></label>
+                <input asp-for="Desk.Depth" class="form-control" placeholder="Enter a value between 12 to 48" min="12" max="48" required></input>
+                <span asp-validation-for="Desk.Depth" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeskQuote.ShippingId" class="control-label"></label>
-                <select asp-for="DeskQuote.ShippingId" class ="form-control" asp-items="ViewBag.ShippingId"></select>
+                <label asp-for="Desk.NumberofDrawer" class="control-label"></label>
+                <input asp-for="Desk.NumberofDrawer" class="form-control" min="0" max="7" placeholder="Enter a value between 0 to 7" required></input>
+                <span asp-validation-for="Desk.NumberofDrawer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeskQuote.DeskId" class="control-label"></label>
-                <select asp-for="DeskQuote.DeskId" class ="form-control" asp-items="ViewBag.DeskId"></select>
+                <label asp-for="DeskQuote.Desk.SurfaceMaterial.SurfaceMaterialName" class="control-label"></label>
+                <select asp-for="DeskQuote.Desk.SurfaceMaterialId" class="form-control" asp-items="ViewBag.SurfaceMaterialId">
+                    <option value="" disabled selected>Select One Surface Material</option>
+                </select>
+                <span asp-validation-for="DeskQuote.Desk.SurfaceMaterial.SurfaceMaterialName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeskQuote.Shipping.ShippingDays" class="control-label"></label>
+                <select asp-for="DeskQuote.ShippingId" class="form-control" asp-items="ViewBag.ShippingId">
+                    <option value="" disabled selected>Choose</option>
+                </select>
+                <span asp-validation-for="DeskQuote.Shipping.ShippingDays" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
