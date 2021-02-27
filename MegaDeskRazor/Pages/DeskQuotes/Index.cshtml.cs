@@ -32,10 +32,11 @@ namespace MegaDeskRazor.Pages.DeskQuotes
             {
                 name = name.Where(s => s.CustomerName.Contains(SearchString));
             }
-            DeskQuote = await _context.DeskQuote
+            DeskQuote = await name
                 .Include(d => d.Desk)
                 .Include(d => d.Desk.SurfaceMaterial)
                 .Include(d => d.Shipping)
+                .OrderBy(d => d.QuoteDate)
                 .ToListAsync();
         }
     }

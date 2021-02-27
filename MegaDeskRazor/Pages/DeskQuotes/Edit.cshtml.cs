@@ -33,9 +33,11 @@ namespace MegaDeskRazor.Pages.DeskQuotes
                 return NotFound();
             }
 
-            DeskQuote = await _context.DeskQuote
+            /*DeskQuote = await _context.DeskQuote
                 .Include(d => d.Desk)
-                .Include(d => d.Shipping).FirstOrDefaultAsync(m => m.DeskQuoteId == id);
+                .Include(d => d.Shipping).FirstOrDefaultAsync(m => m.DeskQuoteId == id);*/
+            DeskQuote = await _context.DeskQuote.FindAsync(id);
+            Desk = await _context.Desk.FindAsync(DeskQuote.DeskId);
 
             if (DeskQuote == null)
             {
@@ -48,7 +50,7 @@ namespace MegaDeskRazor.Pages.DeskQuotes
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
@@ -59,23 +61,20 @@ namespace MegaDeskRazor.Pages.DeskQuotes
 
             try
             {
-                //add desk
-                _context.Desk.Add(Desk);
-
-                //set desk id
-                DeskQuote.DeskId = Desk.DeskId;
-
+                
+                var QuoteFromDB = await _context.DeskQuote.FindAsync(DeskQuote.DeskQuoteId);
+                var DeskFromDB = await _context.Desk.FindAsync(DeskQuote.DeskId);
+                
+                DeskFromDB = Desk;
                 //set desk
-                DeskQuote.Desk = Desk;
+                QuoteFromDB.Desk = DeskFromDB;
 
-                //set quote date
-                DeskQuote.QuoteDate = DateTime.Today;
+                QuoteFromDB.QuoteDate = DateTime.Today;
 
                 //set quote price
-                DeskQuote.QuotePrice = DeskQuote.GetQuotePrice(_context);
+                QuoteFromDB.QuotePrice = DeskQuote.GetQuotePrice(_context);
+                QuoteFromDB = DeskQuote;
 
-                //set deskqoute
-                _context.DeskQuote.Add(DeskQuote);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Desk.Width" class="control-label"></label>
-                <input asp-for="Desk.Width" class="form-control" placeholder="Enter a value between 48 to 96" required></input>
+                <input asp-for="Desk.Width" class="form-control" placeholder="Enter a value between 24 to 96" required></input>
                 <span asp-validation-for="Desk.Width" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,8 +35,8 @@
                 <span asp-validation-for="Desk.NumberofDrawer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeskQuote.Desk.SurfaceMaterial.SurfaceMaterialName" class="control-label"></label>
-                <select asp-for="DeskQuote.Desk.SurfaceMaterialId" class="form-control" asp-items="ViewBag.SurfaceMaterialId">
+                <label asp-for="Desk.SurfaceMaterial.SurfaceMaterialName" class="control-label"></label>
+                <select asp-for="Desk.SurfaceMaterialId" class="form-control" asp-items="ViewBag.SurfaceMaterialId">
                     <option value="" disabled selected>Select One Surface Material</option>
                 </select>
                 <span asp-validation-for="DeskQuote.Desk.SurfaceMaterial.SurfaceMaterialName" class="text-danger"></span>
