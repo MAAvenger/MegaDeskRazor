@@ -7,21 +7,27 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+img {
+    border-radius: 50%;
+}
+#head{
+    color:#0b9632;
+}
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0b9632;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #f8f9fa;
+    background-color: #2a9a36;
+    border-color: #033a04;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #f8f9fa;
+    background-color: #033a04;
+    border-color: #033a04;
 }
 
 /* Sticky footer styles
@@ -36,14 +42,14 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #58ca37;
 }
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #58ca37;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(30, 130, 70, .05);
 }
 
 button.accept-policy {
@@ -61,6 +67,8 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  color: #0b9632;
+  font-family: 'Sitka Text';
 }
 .footer {
   position: absolute;
@@ -68,4 +76,5 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+  background-color: #151414;
 }
